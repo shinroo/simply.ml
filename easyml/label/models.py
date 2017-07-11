@@ -16,12 +16,12 @@ class TechnicalUser(models.Model):
 class EndUser(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+class Dataelement(models.Model):
+	data = models.CharField(max_length=1000)
+	parentset = models.OneToOneField('Dataset')
+
 class Dataset(models.Model):
 	name = models.CharField(max_length=200)
 	description = models.CharField(max_length=200)
 	owner = models.OneToOneField(TechnicalUser)
-	elements = models.OneToManyField(Dataelement, on_delete=models.CASCADE)
-
-class Dataelement(models.Model):
-	data = models.CharField(max_length=1000)
-	dataset = models.OneToOneField(Dataset)
+	elements = models.ForeignKey(Dataelement, on_delete=models.CASCADE)
