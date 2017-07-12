@@ -31,6 +31,7 @@ def create_technical_user(request):
 @csrf_exempt
 def create_dataset(request):
 	if request.content_type == 'application/json': 
+		reqjson = json.loads(request.body.decode("utf-8"))
 
 		# TODO: Check for Anonymous user
 		if request.user is None:
@@ -49,6 +50,7 @@ def create_dataset(request):
 @csrf_exempt
 def insert_dataelement():
 	if request.content_type == 'application/json':
+		reqjson = json.loads(request.body.decode("utf-8"))
 
 		# TODO: Check for Anonymous user
 		if request.user is None:
@@ -64,8 +66,8 @@ def insert_dataelement():
 
 @csrf_exempt
 def get_dataelements(request):
-
 	if request.content_type == 'application/json':
+		reqjson = json.loads(request.body.decode("utf-8"))
 
 		# TODO: Check for Anonymous user
 		if request.user is None:
@@ -84,4 +86,3 @@ def get_dataelements(request):
 		response['dataelements'] = response_list
 
 	return JsonResponse(response)
-
