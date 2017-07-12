@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from rest_framework.authtoken import views
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^label/', include('label.urls'))
+    url(r'^label/', include('label.urls')),
+    url(r'^api-token-auth/', views.obtain_auth_token),
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider'))
 ]

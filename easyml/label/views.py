@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-
+from django.contrib.auth.decorators import login_required, permission_required
 import json
 
 from label.models import Dataset, TechnicalUser, Dataelement
@@ -37,7 +37,7 @@ def create_dataset(request):
 		reqjson = json.loads(request.body.decode("utf-8"))
 		username = reqjson['username']
 		password = reqjson['password']
-	
+
 		user = authenticate(username=username, password=password)
 	#################################################################################
 
@@ -59,9 +59,9 @@ def insert_dataelement():
 		reqjson = json.loads(request.body.decode("utf-8"))
 		username = reqjson['username']
 		password = reqjson['password']
-	
+
 		user = authenticate(username=username, password=password)
-	#################################################################################		
+	#################################################################################
 
 	if user is None:
 		return JsonResponse({'Status':'Failed'})
@@ -82,9 +82,9 @@ def get_dataelements(request):
 		reqjson = json.loads(request.body.decode("utf-8"))
 		username = reqjson['username']
 		password = reqjson['password']
-	
+
 		user = authenticate(username=username, password=password)
-	#################################################################################		
+	#################################################################################
 
 	if user is None:
 		return JsonResponse({'Status':'Failed'})
@@ -102,3 +102,6 @@ def get_dataelements(request):
 	response['dataelements'] = response_list
 
 	return JsonResponse(response)
+def view_dataelement(request):
+	return JsonResponse({"Hello" : "World"})
+
