@@ -1,0 +1,1 @@
+curl -X POST -d "grant_type=password&username=testuser&password=testpassword" -u"pHcNTTGmpi5LXsKqcxMRcswQipfaXxHrTF0joDAI:z8vdJk6kUnABOyzrcLZZofp91ajc9IXzdcSHJfWWJF78hlu239N4komlwtDmcwRzDBvaHRvqDawQn51cZWECtfErlJGEB1yXEWQPGYP3FcRUNkgkKWRyt7EWtY5D3uAZ" http://localhost:8000/o/token/
