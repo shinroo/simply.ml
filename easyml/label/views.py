@@ -14,10 +14,9 @@ from label.models import Dataset, TechnicalUser, Dataelement
 
 @csrf_exempt
 def create_technical_user(request):
-	if request.content_type == 'application/json': 
+	if request.content_type == 'application/json':
+		# TODO: Missing Password Validation
 		reqjson = json.loads(request.body.decode("utf-8"))
-
-		print reqjson
 
 		user = User.objects.create_user(reqjson['username'], reqjson['email'], reqjson['password'])
 		user.save()
@@ -33,18 +32,14 @@ def create_technical_user(request):
 def create_dataset(request):
 	if request.content_type == 'application/json': 
 
-	#################################################################################
-		reqjson = json.loads(request.body.decode("utf-8"))
-		username = reqjson['username']
-		password = reqjson['password']
-
-		user = authenticate(username=username, password=password)
-	#################################################################################
-
-		if user is None:
+		# TODO: Check for Anonymous user
+		if request.user is None:
 			return JsonResponse({'Status':'Failed'})
 
-		d = Dataset(name=reqjson['name'], description=reqjson['description'], owner=user)
+		# TODO: Fail if T_user doesnt exist
+		t_user = TechnicalUser.objects.get(user=request.user)
+
+		d = Dataset(name=reqjson['name'], description=reqjson['description'], owner=t_user)
 		d.save()
 
 		return JsonResponse({'Status':'Success'})
@@ -55,52 +50,38 @@ def create_dataset(request):
 def insert_dataelement():
 	if request.content_type == 'application/json':
 
-	#################################################################################
-		reqjson = json.loads(request.body.decode("utf-8"))
-		username = reqjson['username']
-		password = reqjson['password']
+		# TODO: Check for Anonymous user
+		if request.user is None:
+			return JsonResponse({'Status': 'Failed'})
 
-		user = authenticate(username=username, password=password)
-	#################################################################################
+		dataset = reqjson['dataset']
+		data = reqjson['data']
 
-	if user is None:
-		return JsonResponse({'Status':'Failed'})
+		#TODO: add check
 
-	dataset = reqjson['dataset']
-	data = reqjson['data']
-
-	#TODO: add check
-
-	de = Dataelement(parentset=dataset, data=data)
-	de.save()
+		de = Dataelement(parentset=dataset, data=data)
+		de.save()
 
 @csrf_exempt
 def get_dataelements(request):
 
 	if request.content_type == 'application/json':
 
-	#################################################################################
-		reqjson = json.loads(request.body.decode("utf-8"))
-		username = reqjson['username']
-		password = reqjson['password']
+		# TODO: Check for Anonymous user
+		if request.user is None:
+			return JsonResponse({'Status': 'Failed'})
 
-		user = authenticate(username=username, password=password)
-	#################################################################################
+		dataset = reqjson['dataset']
 
-	if user is None:
-		return JsonResponse({'Status':'Failed'})
+		response = {}
+		response_list = []
 
-	dataset = reqjson['dataset']
+		results = Dataelement.objects.get(parentset=dataset)
 
-	response = {}
-	response_list = []
+		for result in results:
+			response_list.append(result)
 
-	results = Dataelement.objects.get(parentset=dataset)
-
-	for result in results:
-		response_list.append(result)
-
-	response['dataelements'] = response_list
+		response['dataelements'] = response_list
 
 	return JsonResponse(response)
 
