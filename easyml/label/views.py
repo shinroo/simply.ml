@@ -29,24 +29,17 @@ def create_technical_user(request):
 	else:
 		return JsonResponse({'Status':'Failed'})
 
-
 @csrf_exempt
-def upload_dataset(request):
+def create_dataset(request):
 	if request.content_type == 'application/json': 
+
+	#################################################################################
 		reqjson = json.loads(request.body.decode("utf-8"))
 		username = reqjson['username']
 		password = reqjson['password']
-		print request.session.keys()
-		print request.user
+	
 		user = authenticate(username=username, password=password)
-		#login(request, user)
-		print user
-		print request.user
-		print request.session.get_expiry_age()
-		if request.user.is_authenticated:
-			print "IS AUTHENTICATED!"
-		#TODO: Unghetto
-
+	#################################################################################
 
 		if user is None:
 			return JsonResponse({'Status':'Failed'})
@@ -59,6 +52,53 @@ def upload_dataset(request):
 		return JsonResponse({'Status':'Failed'})
 
 @csrf_exempt
-def view_dataelement(request):
-	global testjson
-	return JsonResponse(testjson)
+def insert_dataelement():
+	if request.content_type == 'application/json':
+
+	#################################################################################
+		reqjson = json.loads(request.body.decode("utf-8"))
+		username = reqjson['username']
+		password = reqjson['password']
+	
+		user = authenticate(username=username, password=password)
+	#################################################################################		
+
+	if user is None:
+		return JsonResponse({'Status':'Failed'})
+
+	dataset = reqjson['dataset']
+	data = reqjson['data']
+
+	#TODO: add check
+
+	de = Dataelement(parentset=dataset, data=data)
+	de.save()
+
+@csrf_exempt
+def get_dataelements(request):
+	if request.content_type == 'application/json':
+
+	#################################################################################
+		reqjson = json.loads(request.body.decode("utf-8"))
+		username = reqjson['username']
+		password = reqjson['password']
+	
+		user = authenticate(username=username, password=password)
+	#################################################################################		
+
+	if user is None:
+		return JsonResponse({'Status':'Failed'})
+
+	dataset = reqjson['dataset']
+
+	response = {}
+	response_list = []
+
+	results = Dataelement.objects.get(parentset=dataset)
+
+	for result in results:
+		response_list.append(result)
+
+	response['dataelements'] = response_list
+
+	return JsonResponse(response)
