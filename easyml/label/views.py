@@ -6,7 +6,7 @@ from django.http import JsonResponse
 
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 
 import json
 
@@ -34,12 +34,19 @@ def create_technical_user(request):
 def upload_dataset(request):
 	if request.content_type == 'application/json': 
 		reqjson = json.loads(request.body.decode("utf-8"))
-
-		#TODO: Unghetto
 		username = reqjson['username']
 		password = reqjson['password']
-
+		print request.session.keys()
+		print request.user
 		user = authenticate(username=username, password=password)
+		#login(request, user)
+		print user
+		print request.user
+		print request.session.get_expiry_age()
+		if request.user.is_authenticated:
+			print "IS AUTHENTICATED!"
+		#TODO: Unghetto
+
 
 		if user is None:
 			return JsonResponse({'Status':'Failed'})
