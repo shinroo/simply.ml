@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 import json
 
-from label.models import Dataset, TechnicalUser, Dataelement
-
+from label.models import Dataset, Dataelement
+from users.models import TechnicalUser
 @csrf_exempt
 def create_technical_user(request):
 	if request.content_type != 'application/json':
