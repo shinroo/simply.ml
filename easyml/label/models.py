@@ -24,4 +24,3 @@ class Dataset(models.Model):
 	name = models.CharField(max_length=200)
 	description = models.CharField(max_length=200)
 	owner = models.OneToOneField(TechnicalUser)
-	elements = models.ForeignKey(Dataelement, on_delete=models.CASCADE)

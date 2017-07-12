@@ -48,7 +48,7 @@ def create_dataset(request):
 		return JsonResponse({'Status':'Failed'})
 
 @csrf_exempt
-def insert_dataelement():
+def insert_dataelement(request):
 	if request.content_type == 'application/json':
 		reqjson = json.loads(request.body.decode("utf-8"))
 
@@ -57,12 +57,16 @@ def insert_dataelement():
 			return JsonResponse({'Status': 'Failed'})
 
 		dataset = reqjson['dataset']
-		data = reqjson['data']
+		dataset = Dataset.objects.get(name=dataset)
 
-		#TODO: add check
+		data = reqjson['data']
 
 		de = Dataelement(parentset=dataset, data=data)
 		de.save()
+
+		return JsonResponse({'Status':'Success'})
+	else:
+		return JsonResponse({'Status':'Failed'})
 
 @csrf_exempt
 def get_dataelements(request):
@@ -74,11 +78,14 @@ def get_dataelements(request):
 			return JsonResponse({'Status': 'Failed'})
 
 		dataset = reqjson['dataset']
+		dataset = Dataset.objects.get(name=dataset)
 
 		response = {}
 		response_list = []
 
 		results = Dataelement.objects.get(parentset=dataset)
+
+		results.to_string()
 
 		for result in results:
 			response_list.append(result)
