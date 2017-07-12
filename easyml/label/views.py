@@ -76,6 +76,7 @@ def insert_dataelement():
 
 @csrf_exempt
 def get_dataelements(request):
+
 	if request.content_type == 'application/json':
 
 	#################################################################################
@@ -102,6 +103,4 @@ def get_dataelements(request):
 	response['dataelements'] = response_list
 
 	return JsonResponse(response)
-def view_dataelement(request):
-	return JsonResponse({"Hello" : "World"})
 
