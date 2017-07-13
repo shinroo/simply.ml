@@ -9,24 +9,25 @@ import json
 
 from users.models import TechnicalUser
 
+
 @csrf_exempt
 def create_technical_user(request):
-	if request.content_type != 'application/json':
-		return JsonResponse({"status": 400, "message": "Invalid Request - Only accepts Content-Type:application/json"})
+    if request.content_type != 'application/json':
+        return JsonResponse({"status": 400, "message": "Invalid Request - Only accepts Content-Type:application/json"})
 
-	reqjson = json.loads(request.body.decode("utf-8"))
-	try:
-		validate_password(reqjson['password'])
-	except Exception as e:
-		return JsonResponse({'Status': 400, "Message":str(e)})
+    reqjson = json.loads(request.body.decode("utf-8"))
+    try:
+        validate_password(reqjson['password'])
+    except Exception as e:
+        return JsonResponse({'Status': 400, "Message": str(e)})
 
-	# TODO: Verify Email etc...
-	try:
-		user = User.objects.create_user(reqjson['username'], reqjson['email'], reqjson['password'])
-	except IntegrityError as e:
-		return JsonResponse({'status': 400, "message" : "Username already taken"})
+    # TODO: Verify Email etc...
+    try:
+        user = User.objects.create_user(reqjson['username'], reqjson['email'], reqjson['password'])
+    except IntegrityError as e:
+        return JsonResponse({'status': 400, "message": "Username already taken"})
 
-	user.save()
-	t = TechnicalUser(user=user)
-	t.save()
-	return JsonResponse({'status' : 200, 'message' : 'OK'})
+    user.save()
+    t = TechnicalUser(user=user)
+    t.save()
+    return JsonResponse({'status': 200, 'message': 'OK'})
