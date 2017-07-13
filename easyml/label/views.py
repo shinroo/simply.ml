@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 import json
 
-from label.models import Dataset, Dataelement
+from label.models import Dataset, DataElement
 from users.models import TechnicalUser
 
 def invalid_request_only_accept_json():
@@ -52,7 +52,7 @@ def insert_dataelement(request):
 
 	data = reqjson['data']
 
-	de = Dataelement(parentset=dataset, data=data)
+	de = DataElement(parentset=dataset, data=data)
 	de.save()
 
 	return ok()
@@ -79,7 +79,7 @@ def get_dataelements(request):
 	response = {}
 	response_list = []
 
-	results = Dataelement.objects.get(parentset=dataset)
+	results = DataElement.objects.get(parentset=dataset)
 
 	results.to_string()
 
