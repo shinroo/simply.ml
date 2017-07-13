@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 import json
 
-from label.models import Dataset, DataElement
+from label.models import Dataset, DataElement, LabelChoice, Label
 from users.models import TechnicalUser
 
 def invalid_request_only_accept_json():
@@ -53,6 +53,29 @@ def insert_dataelement(request):
 	data = reqjson['data']
 
 	de = DataElement(parentset=dataset, data=data)
+	de.save()
+
+	return ok()
+
+
+@csrf_exempt
+def insert_labelchoice(request):
+	if request.content_type != 'application/json':
+		return invalid_request_only_accept_json()
+
+	reqjson = json.loads(request.body.decode("utf-8"))
+
+	if not request.user.is_authenticated():
+		return JsonResponse({'status': 403, "message" : "Forbidden - Only available to authenticated users!"})
+
+	dataset_name = reqjson['dataset']
+	try:
+		dataset = Dataset.objects.get(name=dataset)
+	except ObjectDoesNotExist as e:
+		return JsonResponse({'status': 404, "message" : "Not Found - No Dataset with name '" + dataset_name + "' found"})
+
+	labelname = reqjson['name']
+	de = LabelChoice(parentset=dataset, name=labelname)
 	de.save()
 
 	return ok()
