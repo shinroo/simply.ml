@@ -88,13 +88,10 @@ class ShuffledPaginator(Paginator):
 
 @csrf_exempt
 def get_dataelement_page(request):
-    print "BODY", request.body
     if request.content_type != 'application/json':
         return invalid_request_only_accept_json()
     reqjson = json.loads(request.body.decode("utf-8"))
 
-    print request.user
-    print request.user.is_authenticated()
     if not request.user.is_authenticated():
         return require_authenticated_user()
 
@@ -109,6 +106,7 @@ def get_dataelement_page(request):
 
     page = reqjson['page']
     #try:
+    # TODO: Decide what happens on page out of bounds!
     elements = paginator.page(page)
     #except PageNotAnInteger:
     #    # If page is not an integer, deliver first page.

@@ -1,0 +1,1 @@
+curl -H "Authorization: Bearer $1" -H "Content-Type:application/json" -X POST localhost:8000/datasets/get/
