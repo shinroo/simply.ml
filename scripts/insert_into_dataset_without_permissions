@@ -1,1 +1,0 @@
- curl -H "Content-Type:application/json" -X POST localhost:8000/label/insert/ -d '{"dataset":"Twitter23","data":"some text!!!"}'
