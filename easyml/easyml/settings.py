@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'label.apps.LabelConfig',
+    'datasets.apps.DatasetsConfig',
     'rest_framework',
     'oauth2_provider',
     'corsheaders'

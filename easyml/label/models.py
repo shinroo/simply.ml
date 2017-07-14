@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
-import users
+from datasets.models import DataElement, LabelChoice
+from users.models import EndUser
 import json
 
 
@@ -13,40 +14,9 @@ import json
 # freds_department = u.employee.department
 
 
-class DataElement(models.Model):
-    data = models.CharField(max_length=1000)
-    parentset = models.ForeignKey('Dataset')
-
-    def __str__(self):
-        return json.dumps(self.toDict())
-
-    def toDict(self):
-        return {"data": self.data, "parentset": self.parentset.toDict()}
-
-
-class Dataset(models.Model):
-    name = models.CharField(max_length=200,unique=True)
-    description = models.CharField(max_length=200)
-    owner = models.ForeignKey(users.models.TechnicalUser)
-
-    def __str__(self):
-        return json.dumps(self.toDict())
-
-    def toDict(self):
-        return {"name": self.name, "description": self.description}
-
-class LabelChoice(models.Model):
-    name = models.CharField(max_length=200)
-    parentset = models.ForeignKey(Dataset)
-
-    def __str__(self):
-        return json.dumps(self.toDict())
-
-    def toDict(self):
-        return {"name": self.name, "parentset": self.parentset.toDict()}
 
 class Label(models.Model):
-    user = models.ForeignKey(users.models.EndUser)
+    user = models.ForeignKey(EndUser)
     timestamp = models.DateTimeField(auto_now_add=True)
     dataelement = models.ForeignKey(DataElement)
     labelchoice = models.ForeignKey(LabelChoice)
