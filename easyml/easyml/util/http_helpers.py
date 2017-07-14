@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-
+from users.models import TechnicalUser
 
 def invalid_request_only_accept_json():
     return JsonResponse({"status": 400, "message": "Invalid Request - Only accepts Content-Type:application/json"})
