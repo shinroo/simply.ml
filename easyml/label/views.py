@@ -3,24 +3,14 @@ from __future__ import unicode_literals
 import random
 import json
 
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
-from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 
+from easyml.util.http_helpers import ok, invalid_request_only_accept_json, require_authenticated_user
 from label.models import Dataset, DataElement, LabelChoice, Label
 from users.models import TechnicalUser
-
-
-def invalid_request_only_accept_json():
-    return JsonResponse({"status": 400, "message": "Invalid Request - Only accepts Content-Type:application/json"})
-
-
-def ok():
-    return JsonResponse({'status': 200, 'message': 'OK'})
-
 
 def get_technical_user(user):
     # TODO: Fail if T_user doesnt exist
@@ -38,7 +28,7 @@ def create_dataset(request):
     reqjson = json.loads(request.body.decode("utf-8"))
 
     if not request.user.is_authenticated():
-        return JsonResponse({'Status': 403, "Message": "Forbidden - Only available to authenticated users!"})
+        return require_authenticated_user()
 
     t_user = get_technical_user(request.user)
 
@@ -56,7 +46,7 @@ def insert_dataelement(request):
     reqjson = json.loads(request.body.decode("utf-8"))
 
     if not request.user.is_authenticated():
-        return JsonResponse({'status': 403, "message": "Forbidden - Only available to authenticated users!"})
+        return require_authenticated_user()
     t_user = get_technical_user(request.user)
 
     dataset_name = reqjson['dataset']
@@ -84,7 +74,7 @@ def insert_labelchoice(request):
     reqjson = json.loads(request.body.decode("utf-8"))
 
     if not request.user.is_authenticated():
-        return JsonResponse({'status': 403, "message": "Forbidden - Only available to authenticated users!"})
+        return require_authenticated_user()
 
     dataset_name = reqjson['dataset']
     try:
@@ -106,7 +96,7 @@ def label(request):
         return invalid_request_only_accept_json()
     reqjson = json.loads(request.body.decode("utf-8"))
     if not request.user.is_authenticated():
-        return JsonResponse({'status': 403, "message": "Forbidden - Only available to authenticated users!"})
+        return require_authenticated_user()
 
     dataset_name = reqjson['dataset']
     try:
@@ -141,7 +131,7 @@ def get_dataelements(request):
     reqjson = json.loads(request.body.decode("utf-8"))
 
     if not request.user.is_authenticated():
-        return JsonResponse({'Status': 403, "Message": "Forbidden - Only available to authenticated users!"})
+        return require_authenticated_user()
 
     dataset_name = reqjson['dataset']
     #TODO: Check if user has permissions to see the dataset!
@@ -174,11 +164,9 @@ class ShuffledPaginator(Paginator):
 def get_dataelement_page(request):
     if request.content_type != 'application/json':
         return invalid_request_only_accept_json()
-
     reqjson = json.loads(request.body.decode("utf-8"))
-
     if not request.user.is_authenticated():
-        return JsonResponse({'Status': 403, "Message": "Forbidden - Only available to authenticated users!"})
+        return require_authenticated_user()
 
     dataset_name = reqjson['dataset']
     #TODO: Check if user has permissions to see the dataset!

@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.db import IntegrityError
+from easyml.util.http_helpers import ok, invalid_request_only_accept_json
 import json
 
 from users.models import TechnicalUser
@@ -13,13 +14,13 @@ from users.models import TechnicalUser
 @csrf_exempt
 def create_technical_user(request):
     if request.content_type != 'application/json':
-        return JsonResponse({"status": 400, "message": "Invalid Request - Only accepts Content-Type:application/json"})
+        return invalid_request_only_accept_json()
 
     reqjson = json.loads(request.body.decode("utf-8"))
     try:
         validate_password(reqjson['password'])
     except Exception as e:
-        return JsonResponse({'Status': 400, "Message": str(e)})
+        return JsonResponse({'status': 400, "Message": str(e)})
 
     # TODO: Verify Email etc...
     try:
@@ -30,4 +31,4 @@ def create_technical_user(request):
     user.save()
     t = TechnicalUser(user=user)
     t.save()
-    return JsonResponse({'status': 200, 'message': 'OK'})
+    return ok()
