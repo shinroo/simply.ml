@@ -10,6 +10,11 @@ from django.contrib.auth.models import User
 class TechnicalUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.user)
 
 class EndUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.user)
