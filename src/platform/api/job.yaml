@@ -1,0 +1,50 @@
+openapi: "3.0.0"
+
+info:
+  title: Job Interface
+  version: "1.0"
+servers:
+  - url: http://127.0.0.1:8080/
+
+paths:
+  /job/{job_type}:
+    post:
+      summary: Submit Job
+      description: Submits a job.
+      operationId: server.handle_job_submission
+
+      responses:
+        200:
+          description: successful submission
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Successfully submitted time-series job"
+
+      parameters:
+        - name: job_type
+          in: path
+          description: Specifies the type of job.
+          required: true
+          schema:
+            type: string
+            example: "time-series"
+
+      requestBody:
+        description: Job-type specific data and options.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+
+              required:
+                - data
+                - options
+
+              properties:
+                data:
+                  type: object
+                options:
+                  type: object

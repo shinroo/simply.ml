@@ -1,0 +1,5 @@
+pystan==2.19.0.0
+plotly==3.9.0
+fbprophet==0.5
+pandas==0.24.1
+pytest==4.5.0
