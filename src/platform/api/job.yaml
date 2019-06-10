@@ -1,10 +1,39 @@
 openapi: "3.0.0"
 
 info:
-  title: Job Interface
-  version: "1.0"
-servers:
-  - url: http://127.0.0.1:8080/
+  description: |
+    Welcome to the Simply.ml job interface. This simply interface is the foundation of communications with the platform. Simply cosult relevant documentation for the job-type you are interacting with and populate the data and options objects accordingly!
+  version: 0.0.1
+  title: Simply.ml
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: Robert Focke
+    email: robert.focke@member.fsf.org
+    url: http://simply.ml
+  x-logo:
+    url: 'https://redocly.github.io/redoc/petstore-logo.png'
+    altText: Simply.ml Logo
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+externalDocs:
+  description: More information on our github page.
+  url: 'https://github.com/shinroo/simply.ml'
+
+tags:
+  - name: machine learning
+    description: Machine learning functionality.
+  - name: open source
+    description: Open source.
+  - name: community
+    description: Based on research and implementations from the community.
+
+x-tagGroups:
+  - name: General
+    tags:
+      - machine
+      - learning
 
 paths:
   /job/{job_type}:
@@ -17,10 +46,42 @@ paths:
         200:
           description: successful submission
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: "Successfully submitted time-series job"
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Your request was successfully processed.
+                  error_object:
+                    type: object 
+
+        400:
+          description: client error
+          content:
+             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Incorrect request format!
+                  error_object:
+                    type: object
+
+        500:
+          description: server error
+          content:
+             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The server ran into an error while processing your request.
+                  error_object:
+                    type: object
+
 
       parameters:
         - name: job_type
