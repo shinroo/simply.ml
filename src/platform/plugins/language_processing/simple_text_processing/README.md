@@ -6,7 +6,7 @@
 
 **powered_by:** `TextBlob` (MIT): [Repo](https://github.com/sloria/TextBlob)
 
-Producing high quality forecasts for time series data that has multiple seasonality with linear or non-linear growth.
+Common natural language processing (NLP) tasks such as part-of-speech tagging, noun phrase extraction, sentiment analysis, classification, translation, and more.
 
 ## Methods
 
@@ -32,8 +32,7 @@ Incoming Request:
 ```json
 {
 	"data": {
-		"training_csv_url": "http://my.url/csv",
-		"prediction_frequency": "daily"
+		"text": "Example text"
 	},
 	"options": {
 		"method": "method-key"

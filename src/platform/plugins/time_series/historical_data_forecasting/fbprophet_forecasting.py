@@ -9,7 +9,7 @@
 # Producing high quality forecasts for time series data that 
 # has multiple seasonality with linear or non-linear growth.
 #
-# Powered by: Prophet (BSD)
+# Powered by: Prophet (MIT)
 # https://github.com/facebook/prophet
 #
 # Inputs:
@@ -17,7 +17,7 @@
 # {
 # 	"data": {
 # 		"training_csv_url": "http://my.url/csv",
-# 		"prediction_frequency": "daily|monthly|yearly"
+# 		"prediction_frequency": "daily"
 # 	}
 # 	"options": {
 # 		"csv_delimiter": ",",

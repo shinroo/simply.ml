@@ -27,7 +27,7 @@ Incoming Request:
 }
 ```
 
-Monthly, Yearly, Weekly also possible
+Monthly, Yearly, Weekly coming soon!
 
 ### CSV Format
 
