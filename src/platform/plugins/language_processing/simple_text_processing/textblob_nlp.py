@@ -66,9 +66,32 @@ def noun_phrase_extraction(text):
 		'description': 'Returns a list of noun phrases found in the provided text'
 	}
 
+def part_of_speech_tagging(text):
+	'''
+	part_of_speech_tagging(text)
+
+	parameters:
+	- text
+
+	returns:
+	- dict
+	'''
+	temp = TextBlob(text)
+	
+	parts_of_speech = {}
+
+	for pos_tuple in temp.tags:
+		print(pos_tuple[0])
+		parts_of_speech[str(pos_tuple[0])] = str(pos_tuple[1])
+
+	return {
+		'parts_of_speech': parts_of_speech,
+		'description': 'Returns a dictionary representing each word in the provided text with its corresponding part of speech'
+	}
+
 methods = {
-	"noun-phrase-extraction": noun_phrase_extraction
-#	"part-of-speech-tagging": ,
+	"noun-phrase-extraction": noun_phrase_extraction,
+	"part-of-speech-tagging": part_of_speech_tagging,
 #	"sentiment-analysis": ,
 #	"classification": ,
 #	"tokenization": ,
