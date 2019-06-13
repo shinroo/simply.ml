@@ -117,12 +117,39 @@ def sentiment_analysis(text):
 		"subjectivity": temp.sentiment.subjectivity
 	}
 
+def tokenization(text):
+	'''
+	tokenization(text)
+
+	parameters:
+	- text
+
+	returns:
+	- dict
+	'''
+	temp = TextBlob(text)
+	
+	words = []
+
+	for word in temp.words:
+		words.append(str(word))
+
+	sentences = []
+
+	for sentence in temp.sentences:
+		sentences.append(str(sentence))
+
+	return {
+		'words': words,
+		'sentences': sentences,
+		'description': 'Returns a dictionary representing words and sentences found in the provided text.'
+	}
+
 methods = {
 	"noun-phrase-extraction": noun_phrase_extraction,
 	"part-of-speech-tagging": part_of_speech_tagging,
 	"sentiment-analysis": sentiment_analysis,
-#	"classification": ,
-#	"tokenization": ,
+	"tokenization": tokenization,
 #	"frequencies": ,
 #	"parsing": ,
 #	"n-gram": ,
