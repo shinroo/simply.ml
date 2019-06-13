@@ -22,23 +22,15 @@ externalDocs:
   url: 'https://github.com/shinroo/simply.ml'
 
 tags:
-  - name: machine learning
-    description: Machine learning functionality.
-  - name: open source
-    description: Open source.
-  - name: community
-    description: Based on research and implementations from the community.
-
-x-tagGroups:
-  - name: General
-    tags:
-      - machine
-      - learning
+  - name: job-submission
+    description: Job Submission Interface
 
 paths:
   /job/{job_type}:
     post:
       summary: Submit Job
+      tags:
+       - job-submission
       description: Submits a job.
       operationId: server.handle_job_submission
 
@@ -53,9 +45,8 @@ paths:
                   message:
                     type: string
                     example: Your request was successfully processed.
-                  error_object:
+                  response_object:
                     type: object 
-
         400:
           description: client error
           content:
@@ -66,9 +57,8 @@ paths:
                   message:
                     type: string
                     example: Incorrect request format!
-                  error_object:
+                  response_object:
                     type: object
-
         500:
           description: server error
           content:
@@ -79,9 +69,8 @@ paths:
                   message:
                     type: string
                     example: The server ran into an error while processing your request.
-                  error_object:
+                  response_object:
                     type: object
-
 
       parameters:
         - name: job_type
