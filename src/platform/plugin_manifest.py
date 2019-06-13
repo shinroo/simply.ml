@@ -3,5 +3,8 @@
 import plugins.time_series.fbprophet_forecasting as historical_data_forecasting
 
 plugin_manifest = {
-	"historical-data-forecasting": historical_data_forecasting.handle_request
+	"historical-data-forecasting": {
+		"handler": historical_data_forecasting.handle_request,
+		"docs": "https://github.com/shinroo/simply.ml/blob/master/src/platform/plugins/time_series/README.md"
+	}
 }

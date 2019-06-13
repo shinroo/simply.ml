@@ -2,7 +2,10 @@
 
 import connexion
 import json
+
 from core import JobHandler
+from core import JobTypesHandler
+from core import JobDocsHandler
 
 # meta information
 __author__ = "Robert Focke"
@@ -13,6 +16,16 @@ __version__ = "0.1"
 __maintainer__ = "Robert Focke"
 __email__ = "robert.focke@member.fsf.org"
 __status__ = "Alpha"
+
+def serve_job_types() -> dict:
+	handler = JobTypesHandler()
+
+	return handler.get_job_types()
+
+def serve_job_documentation(job_type: str) -> dict:
+	handler = JobDocsHandler(job_type)
+
+	return handler.get_docs()
 
 def handle_job_submission(job_type: str) -> dict:
 	handler = JobHandler(
