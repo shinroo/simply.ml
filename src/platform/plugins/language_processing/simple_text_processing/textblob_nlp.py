@@ -25,6 +25,7 @@
 # }
 
 # standard libs
+import json
 
 # 3rd party libs
 from textblob import TextBlob
@@ -77,7 +78,6 @@ def part_of_speech_tagging(text):
 	parts_of_speech = {}
 
 	for pos_tuple in temp.tags:
-		print(pos_tuple[0])
 		parts_of_speech[str(pos_tuple[0])] = str(pos_tuple[1])
 
 	return {
@@ -170,7 +170,7 @@ def word_frequencies(text):
 
 	frequencies = []
 
-	for token in tokens:
+	for token in set(tokens):
 		frequencies.append({
 			"token": token,
 			"frequency": temp.words.count(token)
@@ -197,7 +197,7 @@ def phrase_frequencies(text):
 
 	frequencies = []
 
-	for token in tokens:
+	for token in set(tokens):
 		frequencies.append({
 			"token": token,
 			"frequency": temp.noun_phrases.count(token)
@@ -257,3 +257,17 @@ def handle_request(request):
 	return methods[request['options']['method']](
 		request['data']['text']
 	)
+
+class CLI():
+
+	def simple_text_processing(self, text, method):
+		request = {
+			"data": {
+				"text": text
+			},
+			"options": {
+				"method": method
+			}
+		}
+
+		return json.dumps(handle_request(request), indent=4)

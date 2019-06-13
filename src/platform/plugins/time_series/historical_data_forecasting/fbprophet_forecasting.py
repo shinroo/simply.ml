@@ -323,3 +323,19 @@ def handle_request(request):
 	print(json.dumps(prediction_json, indent=4))
 
 	return prediction_json
+
+class CLI():
+
+	def historical_data_forecasting(self, training_url, csv_delimiter, date_format_string, prediction_frequency="daily"):
+		request = {
+			"data": {
+				"training_csv_url": training_url,
+				"prediction_frequency": prediction_frequency
+			},
+			"options": {
+				"csv_delimiter": csv_delimiter,
+				"date_format_string": date_format_string
+			}
+		}
+
+		return json.dumps(handle_request(request), indent=4)

@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
+import sys
 import fire
 
-from core import JobHandler
+from plugin_manifest import plugin_manifest
 
 __author__ = "Robert Focke"
 __copyright__ = "Copyright 2018-2019, Robert Focke"
@@ -14,4 +15,7 @@ __email__ = "robert.focke@member.fsf.org"
 __status__ = "Alpha"
 
 if __name__ == '__main__':
-	fire.Fire(JobHandler)
+	if len(sys.argv) < 2:
+		print('please specify the job type: python3 cli.py <job-type> <args>')
+	else:
+		fire.Fire(plugin_manifest[str(sys.argv[1])]['cli'])
