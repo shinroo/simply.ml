@@ -26,7 +26,107 @@ tags:
     description: Job Submission Interface
 
 paths:
+  /job:
+    get:
+      summary: Get a list of job types.
+      tags:
+       - job-submission
+      description: Get list of job types.
+      operationId: server.serve_job_types
+      
+      responses:
+        200:
+          description: Successfully got list of job types.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully got list of job types.
+                  response_object:
+                    type: object 
+        400:
+          description: client error
+          content:
+             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Incorrect request format!
+                  response_object:
+                    type: object
+        500:
+          description: server error
+          content:
+             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The server ran into an error while processing your request.
+                  response_object:
+                    type: object
+
   /job/{job_type}:
+    get:
+      summary: Get job-type documentation.
+      tags:
+       - job-submission
+      description: Get job-type documentation.
+      operationId: server.serve_job_documentation
+      
+      responses:
+        200:
+          description: Successfully got job-type documentation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully got job-type documentation.
+                  response_object:
+                    type: object 
+        400:
+          description: client error
+          content:
+             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Incorrect request format!
+                  response_object:
+                    type: object
+        500:
+          description: server error
+          content:
+             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The server ran into an error while processing your request.
+                  response_object:
+                    type: object
+                    
+      parameters:
+        - name: job_type
+          in: path
+          description: Specifies the type of job.
+          required: true
+          schema:
+            type: string
+            example: "time-series"
+  
     post:
       summary: Submit Job
       tags:
