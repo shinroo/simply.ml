@@ -62,8 +62,7 @@ def noun_phrase_extraction(text):
 		noun_phrases.append(phrase)
 
 	return {
-		'noun_phrases': noun_phrases,
-		'description': 'Returns a list of noun phrases found in the provided text'
+		'noun_phrases': noun_phrases
 	}
 
 def part_of_speech_tagging(text):
@@ -85,8 +84,7 @@ def part_of_speech_tagging(text):
 		parts_of_speech[str(pos_tuple[0])] = str(pos_tuple[1])
 
 	return {
-		'parts_of_speech': parts_of_speech,
-		'description': 'Returns a dictionary representing each word in the provided text with its corresponding part of speech'
+		'parts_of_speech': parts_of_speech
 	}
 
 def sentiment_analysis(text):
@@ -102,7 +100,6 @@ def sentiment_analysis(text):
 	temp = TextBlob(text)
 
 	return {
-		"description": "Returns values for the polarity (positive/negative) and subjectivity (subjective/objective) for the provided text",
 		"ranges": {
 			"polarity": {
 				"lower_bound": "-1.0 (Negative)",
@@ -117,9 +114,9 @@ def sentiment_analysis(text):
 		"subjectivity": temp.sentiment.subjectivity
 	}
 
-def tokenization(text):
+def word_tokenization(text):
 	'''
-	tokenization(text)
+	word_tokenization(text)
 
 	parameters:
 	- text
@@ -134,24 +131,95 @@ def tokenization(text):
 	for word in temp.words:
 		words.append(str(word))
 
+	return {
+		'words': words
+	}
+
+def phrase_tokenization(text):
+	'''
+	phrase_tokenization(text)
+
+	parameters:
+	- text
+
+	returns:
+	- dict
+	'''
+	temp = TextBlob(text)
+
 	sentences = []
 
 	for sentence in temp.sentences:
 		sentences.append(str(sentence))
 
 	return {
-		'words': words,
-		'sentences': sentences,
-		'description': 'Returns a dictionary representing words and sentences found in the provided text.'
+		'phrases': sentences
+	}
+
+def word_frequencies(text):
+	'''
+	word_frequencies(text)
+
+	parameters:
+	- text
+
+	returns:
+	- dict
+	'''
+	tokenized = word_tokenization(text)
+	tokens = tokenized['words']
+	
+	temp = TextBlob(text)
+
+	frequencies = []
+
+	for token in tokens:
+		frequencies.append({
+			"token": token,
+			"frequency": temp.words.count(token)
+		})
+
+	return {
+		'frequencies': frequencies
+	}
+
+def phrase_frequencies(text):
+	'''
+	phrase_frequencies(text)
+
+	parameters:
+	- text
+
+	returns:
+	- dict
+	'''
+	tokenized = noun_phrase_extraction(text)
+	tokens = tokenized['noun_phrases']
+	
+	temp = TextBlob(text)
+
+	frequencies = []
+
+	print(temp.noun_phrases)
+
+	for token in tokens:
+		frequencies.append({
+			"token": token,
+			"frequency": temp.noun_phrases.count(token)
+		})
+
+	return {
+		'frequencies': frequencies
 	}
 
 methods = {
 	"noun-phrase-extraction": noun_phrase_extraction,
 	"part-of-speech-tagging": part_of_speech_tagging,
 	"sentiment-analysis": sentiment_analysis,
-	"tokenization": tokenization,
-#	"frequencies": ,
-#	"parsing": ,
+	"word-tokenization": word_tokenization,
+	"phrase-tokenization": phrase_tokenization,
+	"word-frequencies": word_frequencies,
+	"phrase-frequencies": phrase_frequencies,
 #	"n-gram": ,
 #	"inflection-lemmatization": ,
 #	"spelling-correction":

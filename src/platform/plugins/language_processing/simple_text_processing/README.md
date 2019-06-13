@@ -15,9 +15,8 @@ Common natural language processing (NLP) tasks such as part-of-speech tagging, n
 |Noun phrase extraction|noun-phrase-extraction|
 |Part-of-speech tagging|part-of-speech-tagging|
 |Sentiment analysis|sentiment-analysis|
-|Tokenization (splitting text into words and sentences)|tokenization|
-|Word and phrase frequencies|frequencies|
-|Parsing|parsing|
+|Tokenization (splitting text into words and sentences)|word-tokenization, phrase-tokenization|
+|Word and phrase frequencies|word-frequencies, phrase-frequency|
 |n-grams|n-gram|
 |10Word inflection (pluralization and singularization) and lemmatization|inflection-lemmatization|
 |Spelling correction|spelling-correction|
