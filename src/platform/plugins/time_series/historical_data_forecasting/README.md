@@ -2,13 +2,9 @@
 
 **category:** `time-series`
 
-**job_type:**`numerical-data-forecasting`
+**job_type:**`historical-data-forecasting`
 
 Producing high quality forecasts for time series data that has multiple seasonality with linear or non-linear growth.
-
-API: `https://api.simply.ml/v1.0/job/time-series/numerical-data-forecasting` `POST`
-
-Demo: `https://demo.simply.ml/time-series/numerical-data-forecasting`
 
 ## Data Definition
 
