@@ -6,9 +6,6 @@
 #
 # [ job-type: simple-text-processing ]
 #
-# Producing high quality forecasts for time series data that 
-# has multiple seasonality with linear or non-linear growth.
-#
 # Common natural language processing (NLP) tasks such as 
 # part-of-speech tagging, noun phrase extraction, 
 # sentiment analysis, classification, translation, and more.
@@ -135,9 +132,9 @@ def word_tokenization(text):
 		'words': words
 	}
 
-def phrase_tokenization(text):
+def sentence_tokenization(text):
 	'''
-	phrase_tokenization(text)
+	sentence_tokenization(text)
 
 	parameters:
 	- text
@@ -153,7 +150,7 @@ def phrase_tokenization(text):
 		sentences.append(str(sentence))
 
 	return {
-		'phrases': sentences
+		'sentences': sentences
 	}
 
 def word_frequencies(text):
@@ -200,8 +197,6 @@ def phrase_frequencies(text):
 
 	frequencies = []
 
-	print(temp.noun_phrases)
-
 	for token in tokens:
 		frequencies.append({
 			"token": token,
@@ -212,17 +207,31 @@ def phrase_frequencies(text):
 		'frequencies': frequencies
 	}
 
+def spelling_correction(text):
+	'''
+	phrase_frequencies(text)
+
+	parameters:
+	- text
+
+	returns:
+	- dict
+	'''
+	temp = TextBlob(text)
+
+	return {
+		'correction': str(temp.correct())
+	}
+
 methods = {
 	"noun-phrase-extraction": noun_phrase_extraction,
 	"part-of-speech-tagging": part_of_speech_tagging,
 	"sentiment-analysis": sentiment_analysis,
 	"word-tokenization": word_tokenization,
-	"phrase-tokenization": phrase_tokenization,
+	"sentence-tokenization": sentence_tokenization,
 	"word-frequencies": word_frequencies,
 	"phrase-frequencies": phrase_frequencies,
-#	"n-gram": ,
-#	"inflection-lemmatization": ,
-#	"spelling-correction":
+	"spelling-correction": spelling_correction
 }
 
 def handle_request(request):
