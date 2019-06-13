@@ -2,7 +2,9 @@
 
 **category:** `time-series`
 
-**job_type:**`historical-data-forecasting`
+**job_type:** `historical-data-forecasting`
+
+**powered_by:** `Prophet` (MIT): [Repo](https://github.com/facebook/prophet)
 
 Producing high quality forecasts for time series data that has multiple seasonality with linear or non-linear growth.
 
@@ -17,7 +19,7 @@ Incoming Request:
 	"data": {
 		"training_csv_url": "http://my.url/csv",
 		"prediction_frequency": "daily"
-	}
+	},
 	"options": {
 		"csv_delimiter": ",",
 		"date_format_string": "%Y-%m-%d"

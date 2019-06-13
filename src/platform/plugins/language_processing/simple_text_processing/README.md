@@ -2,7 +2,9 @@
 
 **category:** `language-processing`
 
-**job_type:**`simple-text-processing`
+**job_type:** `simple-text-processing`
+
+**powered_by:** `TextBlob` (MIT): [Repo](https://github.com/sloria/TextBlob)
 
 Producing high quality forecasts for time series data that has multiple seasonality with linear or non-linear growth.
 
@@ -32,7 +34,7 @@ Incoming Request:
 	"data": {
 		"training_csv_url": "http://my.url/csv",
 		"prediction_frequency": "daily"
-	}
+	},
 	"options": {
 		"method": "method-key"
 	}
