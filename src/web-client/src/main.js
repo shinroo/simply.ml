@@ -48,23 +48,31 @@ class SimplyMLRequestForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Data:
+
+        <div class="flex-container">
+
+        <div>
 					<textarea
 						value={this.state.data.value}
 						onChange={this.handleDataChange}
 						rows={this.state.data.rows}
-					/>
-        </label>	
-				<label>
-          Options:
+					/>	
+        </div>
+
+        <div>
 					<textarea 
 						value={this.state.options.value}
 						onChange={this.handleOptionsChange} 
 						rows={this.state.options.rows}
 					/>
-        </label>
-        <input type="submit" value="Submit" />
+        </div>
+
+        <div>
+          <input type="submit" value="Submit" />
+        </div>
+
+        </div>
+
       </form>
     );
   }

@@ -69,26 +69,32 @@ var SimplyMLRequestForm = function (_React$Component) {
 				"form",
 				{ onSubmit: this.handleSubmit },
 				React.createElement(
-					"label",
-					null,
-					"Data:",
-					React.createElement("textarea", {
-						value: this.state.data.value,
-						onChange: this.handleDataChange,
-						rows: this.state.data.rows
-					})
-				),
-				React.createElement(
-					"label",
-					null,
-					"Options:",
-					React.createElement("textarea", {
-						value: this.state.options.value,
-						onChange: this.handleOptionsChange,
-						rows: this.state.options.rows
-					})
-				),
-				React.createElement("input", { type: "submit", value: "Submit" })
+					"div",
+					{ "class": "flex-container" },
+					React.createElement(
+						"div",
+						null,
+						React.createElement("textarea", {
+							value: this.state.data.value,
+							onChange: this.handleDataChange,
+							rows: this.state.data.rows
+						})
+					),
+					React.createElement(
+						"div",
+						null,
+						React.createElement("textarea", {
+							value: this.state.options.value,
+							onChange: this.handleOptionsChange,
+							rows: this.state.options.rows
+						})
+					),
+					React.createElement(
+						"div",
+						null,
+						React.createElement("input", { type: "submit", value: "Submit" })
+					)
+				)
 			);
 		}
 	}]);
