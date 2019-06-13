@@ -89,10 +89,38 @@ def part_of_speech_tagging(text):
 		'description': 'Returns a dictionary representing each word in the provided text with its corresponding part of speech'
 	}
 
+def sentiment_analysis(text):
+	'''
+	sentiment_analysis(text)
+
+	parameters:
+	- text
+
+	returns:
+	- dict
+	'''
+	temp = TextBlob(text)
+
+	return {
+		"description": "Returns values for the polarity (positive/negative) and subjectivity (subjective/objective) for the provided text",
+		"ranges": {
+			"polarity": {
+				"lower_bound": "-1.0 (Negative)",
+				"upper_bound": "1.0 (Positive)"
+			},
+			"subjectivity": {
+				"lower_bound": "0.0 (Very Objective)",
+				"upper_bound": "1.0 (Very Subjective)"
+			}
+		},
+		"polarity": temp.sentiment.polarity,
+		"subjectivity": temp.sentiment.subjectivity
+	}
+
 methods = {
 	"noun-phrase-extraction": noun_phrase_extraction,
 	"part-of-speech-tagging": part_of_speech_tagging,
-#	"sentiment-analysis": ,
+	"sentiment-analysis": sentiment_analysis,
 #	"classification": ,
 #	"tokenization": ,
 #	"frequencies": ,
