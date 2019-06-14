@@ -17,7 +17,7 @@ plugin_manifest = {
 	},
 	"language-understanding":{
 		"handler": language_understanding.handle_request,
-		"docs": "stub",
+		"docs": "https://github.com/shinroo/simply.ml/blob/master/src/platform/plugins/language_processing/language_understanding/README.md",
 		"cli": language_understanding.CLI
 	}
 }
