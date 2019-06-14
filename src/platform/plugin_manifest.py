@@ -2,7 +2,7 @@
 
 import plugins.time_series.historical_data_forecasting.fbprophet_forecasting as historical_data_forecasting
 import plugins.language_processing.simple_text_processing.textblob_nlp as simple_text_processing
-import plugins.language_processing.language_understanding.snips_understanding.py as language_understanding
+import plugins.language_processing.language_understanding.snips_understanding as language_understanding
 
 plugin_manifest = {
 	"historical-data-forecasting": {
