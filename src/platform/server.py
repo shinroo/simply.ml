@@ -17,6 +17,13 @@ __maintainer__ = "Robert Focke"
 __email__ = "robert.focke@member.fsf.org"
 __status__ = "Alpha"
 
+app = connexion.FlaskApp(
+	__name__,
+	port=8080,
+	specification_dir='api/',
+	debug=True
+)
+
 def serve_job_types() -> dict:
 	handler = JobTypesHandler()
 
@@ -36,14 +43,6 @@ def handle_job_submission(job_type: str) -> dict:
 	return handler.result()
 
 if __name__ == '__main__':
-	# create app
-	app = connexion.FlaskApp(
-		__name__,
-		port=8080,
-		specification_dir='api/',
-		debug=True
-	)
-
 	# load api specifcations
 	app.add_api(
 		'job.yaml',
