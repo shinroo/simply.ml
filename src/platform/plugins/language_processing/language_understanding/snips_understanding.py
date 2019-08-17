@@ -6,7 +6,7 @@
 #
 # [ job-type: language-understanding ]
 #
-# Parse sentences written in natural language and 
+# Parse sentences written in natural language and
 # extract structured information
 #
 # Powered by: Snips NLU (Apache 2.0)
@@ -100,7 +100,7 @@ def handle_request(request):
 
 handle_request({
 	'data': {
-		'training_json_url': 'https://raw.githubusercontent.com/snipsco/snips-nlu/develop/sample_datasets/lights_dataset.json',
+		'training_json_url': 'https://raw.githubusercontent.com/snipsco/snips-nlu/master/sample_datasets/lights_dataset.json',
 		'text': 'Turn the lights on in the kitchen'
 	},
 	'options': {

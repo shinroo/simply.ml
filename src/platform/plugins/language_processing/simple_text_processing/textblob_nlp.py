@@ -6,8 +6,8 @@
 #
 # [ job-type: simple-text-processing ]
 #
-# Common natural language processing (NLP) tasks such as 
-# part-of-speech tagging, noun phrase extraction, 
+# Common natural language processing (NLP) tasks such as
+# part-of-speech tagging, noun phrase extraction,
 # sentiment analysis, classification, translation, and more.
 #
 # Powered by: TextBlob (MIT)
@@ -53,7 +53,7 @@ def noun_phrase_extraction(text):
 	- dict
 	'''
 	temp = TextBlob(text)
-	
+
 	noun_phrases = []
 
 	for phrase in temp.noun_phrases:
@@ -74,7 +74,7 @@ def part_of_speech_tagging(text):
 	- dict
 	'''
 	temp = TextBlob(text)
-	
+
 	parts_of_speech = {}
 
 	for pos_tuple in temp.tags:
@@ -99,12 +99,24 @@ def sentiment_analysis(text):
 	return {
 		"ranges": {
 			"polarity": {
-				"lower_bound": "-1.0 (Negative)",
-				"upper_bound": "1.0 (Positive)"
+				"lower_bound": {
+					"value": -1.0,
+					"label": "Negative"
+				},
+				"upper_bound": {
+					"value": 1.0,
+					"label": "Positive"
+				}
 			},
 			"subjectivity": {
-				"lower_bound": "0.0 (Very Objective)",
-				"upper_bound": "1.0 (Very Subjective)"
+				"lower_bound": {
+					"value": 0.0,
+					"label": "Very Objective"
+				},
+				"upper_bound": {
+					"value": 1.0,
+					"label": "(Very Subjective)"
+				}
 			}
 		},
 		"polarity": temp.sentiment.polarity,
@@ -122,7 +134,7 @@ def word_tokenization(text):
 	- dict
 	'''
 	temp = TextBlob(text)
-	
+
 	words = []
 
 	for word in temp.words:
@@ -165,7 +177,7 @@ def word_frequencies(text):
 	'''
 	tokenized = word_tokenization(text)
 	tokens = tokenized['words']
-	
+
 	temp = TextBlob(text)
 
 	frequencies = []
@@ -192,7 +204,7 @@ def phrase_frequencies(text):
 	'''
 	tokenized = noun_phrase_extraction(text)
 	tokens = tokenized['noun_phrases']
-	
+
 	temp = TextBlob(text)
 
 	frequencies = []
